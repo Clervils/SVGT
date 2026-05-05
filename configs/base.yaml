@@ -1,0 +1,47 @@
+# Base configuration template
+# Copy this file and modify for your specific model
+
+model:
+  name: "gpt2"  # HuggingFace model name
+
+architecture:
+  value_dim: 128  # Value space dimension
+  n_intervention_tokens: 1  # Number of intervention tokens
+  extract_layer: null  # null = auto-compute, or specify layer index
+  n_self_attn_layers: 2  # Number of self-attention layers in ValueTransformer
+  n_heads: 4  # Number of attention heads
+  dropout: 0.1
+  use_attention_pooling: false  # Use attention pooling instead of last token
+  use_transformer_aggregate: false  # Use transformer encoder for aggregation
+
+generator:
+  use_transformer_projector: false  # Use TransformerValueProjector instead of TokenGenerator
+  transformer_n_layers: 2  # Number of layers in TransformerValueProjector
+
+training:
+  stage1:
+    batch_size: 8
+    lr: 1e-4
+    n_epochs: 3
+  stage2:
+    batch_size: 8
+    lr_new: 5e-4  # Learning rate for new components
+    lr_finetune: 1e-5  # Learning rate for existing components
+    n_epochs: 5
+  stage3:
+    batch_size: 4
+    lr_new: 5e-4
+    lr_finetune: 1e-5
+    n_epochs: 5
+    use_gradient_delta: true  # Use gradient method for delta_value computation
+    gradient_step_size: 1.0  # Step size for gradient method
+    lambda_ce: 1.0      # Language model loss weight (semantic maintenance)
+    lambda_safe: 0.5    # Safety loss weight (dense supervision)
+    lambda_reg: 0.1    # Regularization loss weight
+    max_grad_norm: 1.0  # Maximum gradient norm for clipping
+    log_interval: 100  # Logging interval (number of batches)
+
+paths:
+  checkpoint_dir: "checkpoints/default"  # Directory to save checkpoints
+  data_dir: "data/processed"  # Directory containing processed data
+
