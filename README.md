@@ -38,7 +38,7 @@ Please refer to data/README.md for detailed data preparation instructions.
 ```bash
 python scripts/train_stage1.py \
     --config configs/llama3.2_3b_instruct.yaml \
-    --device cuda:3
+    --device cuda
 ```
 
 ### 3. Train Stage 2: Conditional Value Learning
