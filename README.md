@@ -1,14 +1,12 @@
 # Toward Stable Value Alignment: Introducing Independent Modules for Consistent Value Guidance
 
-This repository contains the official implementation of our paper **Toward Stable Value Alignment: Introducing Independent Modules for Consistent Value Guidance** (ICML 2026 Spotlight).
-
-We propose Stable Value Guidance Transformer (SVGT), which explicitly separates value modeling from the residual stream. SVGT introduces an independent value module that maps hidden states into a dedicated low-dimensional value space, performs stable value correction, and injects the corrected signals back into a frozen backbone via bridge tokens. This design provides consistent internal value guidance and enables more stable, generalizable alignment.
+This repository contains the official implementation of our paper **Toward Stable Value Alignment: Introducing Independent Modules for Consistent Value Guidance** (ICML 2026 Spotlight). We propose **Stable Value Guidance Transformer (SVGT)**, which explicitly separates value modeling from the residual stream. SVGT introduces an independent value module that provides consistent internal value guidance and enables more stable, generalizable alignment.
 
 ![Stable Alignment](imgs/Stable_Alignment.png)
 
 ## Overview
 
-Modern LLMs represent task information and value-relevant signals in the same residual stream. Because this stream evolves with the prompt and generated context, value directions can become fragile or distorted by dominant task signals. SVGT addresses this by moving value processing into an independent module that observes the frozen backbone, computes value corrections in a dedicated value space, and then translates those corrections into latent bridge tokens that explicitly guide generation.
+A crucial limitation of current alignment methods lie in the instability of value representation. Within the residual stream, value-relevant information is embedded in a highly dynamic and entangled representational space, where it often appears only as fragile, low-dimensional signals rather than as a stable structure capable of consistently governing generation. SVGT addresses this by moving value processing into an independent module that observes the frozen backbone, computes value corrections in a dedicated value space, and then translates those corrections into latent bridge tokens that explicitly guide generation.
 
 ![SVGT architecture](imgs/arch.png)
 
@@ -24,7 +22,7 @@ SVGT is trained with a three-stage curriculum: first learning context-free harmf
 ## Installation
 
 ```bash
-git clone <repo-url>
+git clone https://github.com/Clervils/SVGT.git
 cd SVGT
 pip install -r requirements.txt
 ```
